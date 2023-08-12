@@ -1,0 +1,19 @@
+{
+  "material": [
+    {
+      "id": 1,
+      "name": "Cement",
+      "quantity": 10
+    },
+    {
+      "name": "Nails",
+      "quantity": "40",
+      "id": 3
+    },
+    {
+      "name": "D-12",
+      "quantity": "100",
+      "id": 4
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#addStock {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: blue;
+    color: beige;
+    margin-left: 38%;
+}
+
+form{
+    top: 2%;
+    height: 210px;
+    width: 220px;
+    background-color: darkgray;
+    position: absolute;
+    left: 15%;
+
+}
+form input{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 5%;
+}
+
+form button{
+    display: block;
+    padding: 10px 20px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-left: 23%;
+}
+
+#add{
+    background-color: green;
+    color: beige;
+    margin-left: 26%;
+}
+
+#cancel {
+    background-color: red;
+    color: beige;
+}
+
+table, th, tr td {
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 10px 40px;
+    margin-left: 10px;
+}
