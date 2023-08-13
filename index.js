@@ -22,6 +22,12 @@ addStock.addEventListener('click', () => {
 })
 
 cancelBtn.addEventListener('click', () => {
+    const hideName = document.getElementById('name');
+    hideName.value = '';
+
+    const hideQuantity = document.getElementById('quantity');
+    hideQuantity.value = '';
+
     hideForm();
 })
 //creating a get request 
@@ -34,10 +40,16 @@ const getRequest = (material) => {
         <td>${material.id}</td>
         <td>${material.name}</td>
         <td>${material.quantity}</td>
-        <td><i class="fa-solid fa-pencil"></i></td>
+        <td><i class="fa-solid fa-pencil-alt editIcon"></i></td>
         <td><i class="fa-solid fa-trash-alt deleteIcon"></i></td>
     `
     table.appendChild(newRow);
+
+    const editIcon = newRow.querySelector('.editIcon');
+    editIcon.addEventListener('click', () => {
+        displayToForm(material.id);
+    })
+
     const dltFunc = newRow.querySelector('.deleteIcon');
     dltFunc.addEventListener('click', () => {
         deleteFunc(material.id);
@@ -74,9 +86,7 @@ const postToServer = () => {
 
 }
 
-add.addEventListener('click', () => {
-    postToServer();
-})
+
 
 //deleting items
 
@@ -90,3 +100,57 @@ const deleteFunc = (id) => {
     .then(response => response.json())
     .then(data => data)
 }
+
+//displaying content when the form pops
+
+let newData = null;
+
+const displayToForm = (id) => {
+    const fetchName = document.getElementById('name');
+    const fetchQuantity = document.getElementById('quantity');
+
+    fetch("http://localhost:3000/material" + `/${id}`)
+    .then(response => response.json())
+    .then(material => {
+        fetchName.value = material.name;
+        fetchQuantity.value = material.quantity;
+        newData = material;
+    })
+
+    openForm();
+}
+
+//updating content: form pops with content, make changes, update changes to the server
+
+
+
+const updateToServer = (id) => {
+    const updateName = document.getElementById('name').value;
+    const updateQuantity = document.getElementById('quantity').value;
+
+    fetch("http://localhost:3000/material" + `/${id}`, {
+        method:'PUT',
+        body:JSON.stringify({
+            name:updateName,
+            quantity:updateQuantity
+        }),
+        headers:{
+            'Content-Type':'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(newData => newData)
+}
+
+
+const handleSubmit = () => {
+    if (newData){
+        updateToServer(newData.id);
+    }else{
+        postToServer();
+    }
+}
+
+add.addEventListener('click', () => {
+    handleSubmit();
+})
